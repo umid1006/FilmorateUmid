@@ -1,11 +1,17 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.junit.After;
+import ru.yandex.practicum.filmorate.constant.FilmCheckDate;
+import ru.yandex.practicum.filmorate.validation.FilmDataChecker;
 
+import javax.validation.Constraint;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
+
+import static ru.yandex.practicum.filmorate.constant.FilmCheckDate.OLDEST_DATE;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE) // Add this line
@@ -20,6 +26,7 @@ public class Film {
 
     @NotNull(message = "Дата релиза не может быть null")
     @PastOrPresent(message = "Дата релиза не может быть в будущем") // Добавьте эту аннотацию
+    @FilmDataChecker(value = OLDEST_DATE)
     LocalDate releaseDate;
 
     @Min(value = 1, message = "Продолжительность фильма должна быть положительным числом")

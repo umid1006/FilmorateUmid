@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.ResourceNotFoundException;
+import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -33,7 +33,7 @@ public class UserService {
         User existingUser = users.stream()
                 .filter(u -> u.getId() == user.getId())
                 .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Пользователь с ID " + user.getId() + " не найден"));
+                .orElseThrow(() -> new FilmNotFoundException("Пользователь с ID " + user.getId() + " не найден"));
 
         if (user.getEmail() != null) {
             existingUser.setEmail(user.getEmail());
